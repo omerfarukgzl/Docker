@@ -1,0 +1,23 @@
+* docker pull mongo ==> mongoyu docker images dan çekmek
+
+* docker run mongo ==> varsa çalıştırma yoksa pullayıp çalıştırma
+
+* docker run ubuntu ==> çalışıp hemen kapanır çünkü ubuntu bir işletim sistemidir görev verilmediği için açılır ve kapanır.
+	Bunun için docker run ubuntu sleep 5 dersen 5 sn bekler öyle kapanır.
+	Fakat ubuntunun içine girmek için docker run -it ubuntu
+
+* docker run -it ubuntu ==> ubuntunun içine girmek
+
+* exit ==> dışına çıkmak 
+
+* docker images ==> images listeleme
+
+* docker ps ==> ayakta olan conteinerlar.
+
+* docker ps --all == docker ps -a ==> geçmişte çalışan tüm conteinerlar.
+
+* docker conteiner ls -a ==> aktif olan ve olmayan tüm conteinerlar.
+
+* docker run -it --name bash_ubuntu ubuntu ==> ubuntu ımagesınden çalışan conteinera bash_ubuntu ismini verdik.
+
+* docker start bash_ubuntu ==> isim verilen conteiner çalışır.
