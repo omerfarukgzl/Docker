@@ -53,9 +53,13 @@
 
 * docker inspect container id veya container ad = docker inspect 3gf23gh32g ==> container' a ait bilgiler
 
-----Not -----
- Containerlar docker host üzerinde çalışırlar. Docker hostun kendisine ait networku var.
- Containerlar gateway üzerinden aksi belirtilmediği sürece bir ip ye sahipler.
+
+--------Not---------
+ 
+Containerlar docker host üzerinde çalışırlar. Docker hostun kendisine ait networku var.
+Containerlar gateway üzerinden aksi belirtilmediği sürece bir ip ye sahipler.
+
+--------Not---------
 
 
 ---------------Port Mapping ----------------------
@@ -101,4 +105,45 @@
  -- opt/data klasoru docker desktop tarafından bilinen ve izin verilmesi gereken klasor olmak zorundadır.
    -- settings/resources=>file sharing bölümünde yapılır.
 
+
 ---------------Volume Mapping ----------------------
+
+
+--------------------SQL----------------------------- 
+
+*docker pull postgres ==> postgresql çekmek
+
+*docker run -e POSTGRES_PASSWORD=mypassword -d postgres ==> postgres container ayağı kaldırmak.
+
+--------------------SQL----------------------------- 
+
+
+--------Not---------
+
+Var olan container ın ismini başka bir container'a vermezsiniz 
+* docker container ls -a ==> tüm container ları görüntüleyebilirsiniz(aktif/aktif olmayan )
+
+--------Not---------
+
+
+---------------Container Links Postgres/PgAdmin----------------------
+
+docker run --name postgres-server -p 5432:5432 -e POSTGRES_PASSWORD=1234 -d postgres
+
+docker run --name pgadmin -p 5555:80 --link postgres-server:db -e PGADMIN_DEFAULT_EMAIL=myemail@gmail.com -e PGADMIN_DEFAULT_PASSWORD=mypassword -d dpage/pgadmin4
+
+---------------Container Links Postgres/PgAdmin----------------------
+
+
+
+---------------Container Links----------------------
+
+-Çalışan Container ları birbirne bağlamak için kullanılır.
+
+- Öncelikle bağlanlılacak ımagesdan container ayağı kaldırmak.Ayrıca isim verilir.
+    * docker run --name mysql-server -p 3306:3306 -e MYSQL_ROOT_PASSWORD=maypassword -d mysql 
+
+- Daha sonra bağlanacak olan çalıştırılır.
+    * docker run --name phpmyadmin -p 8000:80 --link mysql-server:db -d phpmyadmin/phpmyadmin
+
+---------------Container Links---------------------- 
