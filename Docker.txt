@@ -51,6 +51,8 @@
  * docker run -it images adı ==> örneğin uygulamanız kullanıcıdan girdi alıyorsa -it (interactive terminal) yazılmalıdır docker run ımages name yazılırsa kullanıcıdan girdiyi beklemez sonlanır.Tıpkı ubuntu örneğindeki gibi.
 
 
+* docker inspect container id veya container ad = docker inspect 3gf23gh32g ==> container' a ait bilgiler
+
 ----Not -----
  Containerlar docker host üzerinde çalışırlar. Docker hostun kendisine ait networku var.
  Containerlar gateway üzerinden aksi belirtilmediği sürece bir ip ye sahipler.
@@ -76,3 +78,27 @@
 ==>3000,3001,3002 portlarıyla birlikte aynı uygulamayı ayağı kaldırdık. 3 container ayağı kaldırdık.
 
 ---------------Port Mapping ----------------------
+
+
+
+---------------Volume Mapping ----------------------
+
+
+--docker run -p 27017:27107 mongo ile mongo container ı ayağı kaldırdık.Daha sonra mongo dan insert işlemleri gerçekleştirdik.
+  daha sonra docker stop container id ile çalışan mongo containerını durduruk.
+  bu işlemden sonra mongoyu aynı porttan tekrar ayağı kaldırdık => docker run -p 27017:27107 mongo
+  mongoya baktığımızda yaptığımız insert işlemleri gerçekleşmedi.
+  Bunun sebebi :
+- Docker host üzerinde containe' stateless olarak çalışır.
+     Yani herhangi bir bilgi içerisinde kaydedilmez.
+      Container lar durdurulduğunda kayıt ettiğimiz bilgiler sonsuza kadar silinirler.
+
+- Docker da bu durum ortadan kaldırmak için volume kullanılır.
+	
+- Bunu yapmak için container'ı ayağı kaldırdığımızda kayıt edilecek klasörün Docker Host üzerindeki adresini belirtiriz.
+
+* docker run -v /opt/data:/data/db -p 27017:27017 mongo ==> /opt/data: içerisinde data/db yi sakla
+ -- opt/data klasoru docker desktop tarafından bilinen ve izin verilmesi gereken klasor olmak zorundadır.
+   -- settings/resources=>file sharing bölümünde yapılır.
+
+---------------Volume Mapping ----------------------
