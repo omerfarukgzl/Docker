@@ -54,3 +54,25 @@
 ----Not -----
  Containerlar docker host üzerinde çalışırlar. Docker hostun kendisine ait networku var.
  Containerlar gateway üzerinden aksi belirtilmediği sürece bir ip ye sahipler.
+
+
+---------------Port Mapping ----------------------
+
+* docker run -p 3001:3000 omer/app
+	* docker run -p iç port:dış port omer/app
+
+-- Örneğin bir web sunucusu uygulaması docker üzerinde 3000 portunda çalışıyorsa Tarayıcıdan localhost:3000 de çalışmayacaktır. Çünkü 3000 portunda çalışan aslında docker hostu üzerinde çalışır.
+	Bunun için önce docker host'a bağlanmak için gereken portu (iç port ) sonra docker host üzerindeki portu (dış port) yazmamız gerekir.
+	docker run -p 3001:3000 omer/app ==> 3001 portunu biz belirledik.
+	3001 portuyla docker hostuna bağlanmak istiyorum. 3000 portuylada docker host üzerindeki uygulamamabağlanmalıyım.
+	dış portu docker kendisi belirler (aksi belirtilmezse).
+
+-- docker run -p 3000:3000 -d omer/app
+
+-- docker run -p 3001:3000 -d omer/app
+
+-- docker run -p 3002:3000 -d omer/app
+
+==>3000,3001,3002 portlarıyla birlikte aynı uygulamayı ayağı kaldırdık. 3 container ayağı kaldırdık.
+
+---------------Port Mapping ----------------------
