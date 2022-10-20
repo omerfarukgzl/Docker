@@ -21,3 +21,36 @@
 * docker run -it --name bash_ubuntu ubuntu ==> ubuntu ımagesınden çalışan conteinera bash_ubuntu ismini verdik.
 
 * docker start bash_ubuntu ==> isim verilen conteiner çalışır.
+
+* docker stop bash_ubuntu ==> isim verilen conteiner ı sonlandırmak.
+
+	* docker run -it ubuntu ==> docker start bash_ubuntu ,docker stop bash_ubuntu işlemlerinden sonra yazıldığı zaman random isim üretir yeni bir instance çalıştı.
+	* docker stop name veya id ile durudur.
+
+* docker rm container id veya container name ==> geçmişte çalışmış conteiner silme
+ 	* docker rm 0d 
+	* docker rm bash_ubuntu
+
+* docker rm idlerin baştan 2 harflerini boşluk bırakarak yazarsak containerların hepsini silebiliriz. Çünkü id ler uniq.
+	* docker rm 01 b2 8d g3
+
+* docker container rm $(docker container ls -aq) ==> tüm conatiner ları silmek.
+
+* docker run redis:5 ==> redis 5 sürümünü (tag) çalıştır.
+
+
+* docker run -d redis ==> arka planda çalışsın.aynı terminalden komutlarıma edebileyim. ( -d = detach )
+	docker run redis yazımında devamında kod yazımı engellendi.
+	* docker container logs container id ==> arka planda çalışırken görmediğim logları getirir. (başladığı andan basıldığı ana kadar).
+ 	* docker attach ==> basıldığı andan itibaren logları gösterir!!
+
+* docker attach container id ==> tekrar container a connect olmak.
+ 	-- örneğin sürekli olarak her 1 saniyede tarih loglayan uygulamayı arka planda çalıştırmak isteriz çünkü terminal de bizi block lar. kod yazmamıza izin vermez !!
+
+
+ * docker run -it images adı ==> örneğin uygulamanız kullanıcıdan girdi alıyorsa -it (interactive terminal) yazılmalıdır docker run ımages name yazılırsa kullanıcıdan girdiyi beklemez sonlanır.Tıpkı ubuntu örneğindeki gibi.
+
+
+----Not -----
+ Containerlar docker host üzerinde çalışırlar. Docker hostun kendisine ait networku var.
+ Containerlar gateway üzerinden aksi belirtilmediği sürece bir ip ye sahipler.
