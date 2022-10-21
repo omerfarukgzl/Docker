@@ -34,6 +34,8 @@
 * docker rm idlerin baştan 2 harflerini boşluk bırakarak yazarsak containerların hepsini silebiliriz. Çünkü id ler uniq.
 	* docker rm 01 b2 8d g3
 
+* docker rmi imagename==> image silmek.
+
 * docker container rm $(docker container ls -aq) ==> tüm conatiner ları silmek.
 
 * docker run redis:5 ==> redis 5 sürümünü (tag) çalıştır.
@@ -147,3 +149,51 @@ docker run --name pgadmin -p 5555:80 --link postgres-server:db -e PGADMIN_DEFAUL
     * docker run --name phpmyadmin -p 8000:80 --link mysql-server:db -d phpmyadmin/phpmyadmin
 
 ---------------Container Links---------------------- 
+
+
+
+
+
+---------------Docker Network Türleri---------------
+
+
+*docker network ls ==>ile networkler görüntülenebilir.
+
+3 Tür network vardır.
+- Bridge 
+- None 
+- Host
+
+Bridge Network:
+Eğer docker run mongo yazarsanız yani default olarak bir ımage çalıştırırsanız docker host üzerinde bir networke sahip olur ve bu networkun adı bridge networkdur.
+Docker host içerisindeki containerlar gateway üzerinden bağlantılı olabiliyor.
+
+None network:
+*docker run mongo --network=none yazarsak container'a içerden yada dışardan erişilemez.
+
+Host network:
+*docker run mongo --network=host Docker host içerisindeki containerların port numaralarıyla birbirlerine bağlanmasını sağlar.
+
+
+kullanıcı tanımlı network:
+Default olarak bridge networke sahibiz. fakat netwok üretmek için 
+*docker network create --driver bridge --subnet 182.18.0.0/16 --gateway 182.18.0.1 app--network
+yazarsak docker host içerisinde 182.18.0.1 gateway ile container lar birbirlerine bağlanacaktırlar.
+
+
+* docker run --name mongo-server --net custom-network -d mongo ==> oluşturduğumuz custom network de container ayağı kaldır. -------\
+                                                                                                                                    \ == böylece mongo ve todoapp aynı network üzerinden ayağı kalkaarak birbirlerine bağlandılar.Link ile değil network ile bağlantı kurduk.   
+                                                                                                                                    / !!!! todo app kodunda mongo ya bağlanma kodunda ise localhost yazmadık custom-container:3000 yazdık ve bağlantı aşamaları tam oldu.   
+* docker run --net custom-network -p 3000:3000 gkandemir/todoapp ==>oluşturduğumuz custom network de container ayağı kaldır.-------/  
+
+
+* docker network rm networkname veya network id==> network silmek.
+
+
+---------------Docker Network Türleri----------------
+
+
+
+
+
+
